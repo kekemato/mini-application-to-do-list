@@ -26,13 +26,17 @@ class ToDo {
             button.style.marginLeft = '10px'
 
             li.addEventListener('click', function () {
-                if (this.style.textDecoration === "line-through") {
+                if (task.isComplited === true) {
+                    task.toggleTask()
                     this.style.textDecoration = "none"
                 } else {
+                    task.toggleTask()
                     this.style.textDecoration = "line-through"
                 }
             })
+
             button.addEventListener('click', (e) => this.deleteClickHandler(e, index))
+
             li.appendChild(button)
             ul.appendChild(li)
         })
@@ -41,15 +45,26 @@ class ToDo {
     }
 
     makeUI() {
-        const input = document.createElement('input')
+        const addTaskInput = document.createElement('input')
         const addTaskButton = document.createElement('button')
+        const searchTaskInput = document.createElement('input')
+        const searchTaskButton = document.createElement('button')
+
         addTaskButton.innerText = 'Dodaj zadanie'
-        addTaskButton.style.marginLeft = '10px'
+        addTaskButton.style.marginLeft = '5px'
 
-        addTaskButton.addEventListener('click', () => this.addTask(input.value))
+        searchTaskInput.style.marginLeft = '20px'
 
-        document.body.appendChild(input)
+        searchTaskButton.innerText = 'Wyszukaj'
+        searchTaskButton.style.marginLeft = '5px'
+
+        addTaskButton.addEventListener('click', () => this.addTask(addTaskInput.value))
+        searchTaskButton.addEventListener('click', this.findTask(searchTaskInput.value))
+
+        document.body.appendChild(addTaskInput)
         document.body.appendChild(addTaskButton)
+        document.body.appendChild(searchTaskInput)
+        document.body.appendChild(searchTaskButton)
     }
 
     deleteClickHandler(e, index) {
@@ -58,11 +73,22 @@ class ToDo {
         this.render()
     }
 
+    findTask(input) {
+        return this.tasks.filter(task => {
+            task.text.replace(/\s/g, '').toLowerCase() === input.replace(/\s/g, '').toLowerCase()
+        })
+    }
+
 }
 
 class Task {
     constructor(text) {
         this.text = text
+        this.isComplited = false
+    }
+
+    toggleTask() {
+        this.isComplited = !this.isComplited
     }
 
 }
