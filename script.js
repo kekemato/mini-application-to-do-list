@@ -74,9 +74,7 @@ class ToDo {
     }
 
     findTask(input) {
-        return this.tasks.filter(task => {
-            task.text.replace(/\s/g, '').toLowerCase() === input.replace(/\s/g, '').toLowerCase()
-        })
+        return this.tasks.filter(task => task.text.replace(/\s/g, '').toLowerCase() === input.replace(/\s/g, '').toLowerCase())
     }
 
 }
