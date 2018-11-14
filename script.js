@@ -11,13 +11,14 @@ class ToDo {
         this.render()
     }
 
-    render() {
+    render(arr) {
         this.location.innerHTML = ''
         const ul = document.createElement('ul')
+        const array = arr || this.tasks
 
         this.makeUI()
 
-        this.tasks.forEach((task, index) => {
+        array.forEach((task, index) => {
             const li = document.createElement('li')
             const button = document.createElement('button')
 
@@ -59,7 +60,7 @@ class ToDo {
         searchTaskButton.style.marginLeft = '5px'
 
         addTaskButton.addEventListener('click', () => this.addTask(addTaskInput.value))
-        searchTaskButton.addEventListener('click', this.findTask(searchTaskInput.value))
+        searchTaskButton.addEventListener('click', () => this.findTask(searchTaskInput.value))
 
         document.body.appendChild(addTaskInput)
         document.body.appendChild(addTaskButton)
@@ -74,7 +75,8 @@ class ToDo {
     }
 
     findTask(input) {
-        return this.tasks.filter(task => task.text.replace(/\s/g, '').toLowerCase() === input.replace(/\s/g, '').toLowerCase())
+        this.tasksFiltered = this.tasks.filter(task => task.text.replace(/\s/g, '').toLowerCase().includes(input.replace(/\s/g, '').toLowerCase()))
+        this.render(this.tasksFiltered)
     }
 
 }
