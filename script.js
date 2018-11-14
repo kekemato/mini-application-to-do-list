@@ -1,6 +1,6 @@
 class ToDo {
     constructor(location) {
-        this.tasks = []
+        this.tasks = JSON.parse(localStorage.getItem('toDoList')) || []
         this.location = document.querySelector(location) || document.body
         this.render()
     }
@@ -8,6 +8,7 @@ class ToDo {
     addTask(text) {
         this.tasks.push(new Task(text))
 
+        this.updateListInLocalStorage()
         this.render()
     }
 
@@ -71,12 +72,18 @@ class ToDo {
     deleteClickHandler(e, index) {
         e.stopPropagation()
         this.tasks = this.tasks.slice(0, index).concat(this.tasks.slice(index + 1))
+
+        this.updateListInLocalStorage()
         this.render()
     }
 
     findTask(input) {
         this.tasksFiltered = this.tasks.filter(task => task.text.replace(/\s/g, '').toLowerCase().includes(input.replace(/\s/g, '').toLowerCase()))
         this.render(this.tasksFiltered)
+    }
+
+    updateListInLocalStorage() {
+        localStorage.setItem('toDoList', `${JSON.stringify(this.tasks)}`)
     }
 
 }
@@ -94,5 +101,3 @@ class Task {
 }
 
 const ToDo1 = new ToDo()
-
-ToDo1.addTask('wynieś śmieci')
