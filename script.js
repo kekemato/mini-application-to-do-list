@@ -67,17 +67,11 @@ class ToDo {
             button.innerText = 'Usuń'
             button.style.marginLeft = '10px'
 
-            li.addEventListener('click', function () {
-                if (task.isCompleted === true) {
-                    task.isCompleted = false
-                    this.style.textDecoration = "none"
-                } else {
-                    task.isCompleted = true
-                    this.style.textDecoration = "line-through"
-                }
-            })
+            li.addEventListener('click', () => this.toggleTask(task, li))
 
             button.addEventListener('click', (e) => this.deleteClickHandler(e, index))
+
+            this.taskStyle(task, li)
 
             li.appendChild(button)
             ul.appendChild(li)
@@ -99,6 +93,25 @@ class ToDo {
 
         this.updateListInLocalStorage()
         this.render()
+    }
+
+    toggleTask(task) {
+        if (task.isCompleted === true) {
+            task.isCompleted = false
+        } else {
+            task.isCompleted = true
+        }
+
+        this.updateListInLocalStorage()
+        this.render()
+    }
+
+    taskStyle(task, taskContainer) {
+        if (task.isCompleted === false) {
+            taskContainer.style.textDecoration = "none"
+        } else {
+            taskContainer.style.textDecoration = "line-through"
+        }
     }
 
     findTask(input) {
