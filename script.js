@@ -1,4 +1,5 @@
-class ToDo {
+(function () {
+    class ToDo {
     constructor(location) {
         this.tasks = JSON.parse(localStorage.getItem('toDoList')) || []
         this.location = document.querySelector(location) || document.body
@@ -142,4 +143,5 @@ class Task {
     }
 }
 
-const ToDo1 = new ToDo()
+window.ToDo = ToDo
+})()
