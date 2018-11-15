@@ -72,7 +72,7 @@
 
             button.addEventListener('click', (e) => this.deleteClickHandler(e, index))
 
-            this.taskStyle(task, li)
+            this.taskIsCompletedStyle(task, li)
 
             li.appendChild(button)
             ul.appendChild(li)
@@ -107,7 +107,7 @@
         this.render()
     }
 
-    taskStyle(task, taskContainer) {
+    taskIsCompletedStyle(task, taskContainer) {
         if (task.isCompleted === false) {
             taskContainer.style.textDecoration = "none"
         } else {
