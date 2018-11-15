@@ -2,7 +2,7 @@
     class ToDo {
     constructor(location) {
         this.tasks = JSON.parse(localStorage.getItem('toDoList')) || []
-        this.location = document.querySelector(location) || document.body
+        this.location = location || document.body
         this.init()
     }
 
@@ -42,14 +42,14 @@
         showCompletedButton.addEventListener('click', () => this.findCompletedTasks())
         showUncompletedButton.addEventListener('click', () => this.findUncompletedTasks())
 
-        document.body.appendChild(addTaskInput)
-        document.body.appendChild(addTaskButton)
-        document.body.appendChild(searchTaskInput)
-        document.body.appendChild(searchTaskButton)
+        this.location.appendChild(addTaskInput)
+        this.location.appendChild(addTaskButton)
+        this.location.appendChild(searchTaskInput)
+        this.location.appendChild(searchTaskButton)
         filterButtonsContainer.appendChild(showAllButton)
         filterButtonsContainer.appendChild(showCompletedButton)
         filterButtonsContainer.appendChild(showUncompletedButton)
-        document.body.appendChild(filterButtonsContainer)
+        this.location.appendChild(filterButtonsContainer)
 
     }
 
