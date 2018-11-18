@@ -68,7 +68,7 @@
             button.innerText = 'Usuń'
             button.style.marginLeft = '10px'
 
-            li.addEventListener('click', () => this.toggleTask(task, li))
+            li.addEventListener('click', () => this.toggleTask(task))
 
             button.addEventListener('click', (e) => this.deleteClickHandler(e, index))
 
